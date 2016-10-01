@@ -8,14 +8,13 @@ class App extends React.Component {
     };
   }
   updateCurrVideo(video) {
-    console.log(this, video);
     this.setState({
       currVideo: video });
   }
   //function that initializes app by calling props.searchyoutube
   componentDidMount() {
   //this function passes in the callback function searchyoutube uses
-    this.props.searchYoutube({q: 'dogs', maxResults: 5}, this.updateVideoList.bind(this));
+    this.props.searchYouTube({key: window.YOUTUBE_API_KEY, query: 'dogs', max: 5}, this.updateVideoList.bind(this));
 
   //the callbackfunction is update the state of video list
   }
@@ -33,17 +32,27 @@ class App extends React.Component {
       this.setState({
         'timeout': false
       });
-      console.log(term);
-      this.props.searchYoutube({q: term, maxResults: 10}, this.updateVideoList.bind(this));
+      this.props.searchYouTube({key: window.YOUTUBE_API_KEY, query: term, max: 10}, this.updateVideoList.bind(this));
       setTimeout(() => this.setState({timeout: true}), 500);
     }
   }
   render() {
     // this.addEventListener('click', this.updateCurrVideo.bind(this));
     if ( !this.state.currVideo ) {
+      // return (
+      //   <div>
+      //     <Nav search={this.search.bind(this)}/>
+      //     <div className="col-md-7">
+      //       <VideoPlayer />
+      //     </div>
+      //     <div className="col-md-5">
+      //       <VideoList />
+      //     </div>
+      //   </div>
+      // );
       // Note that you can return false it you want nothing to be put in the dom
       // This is also your chance to render a spinner or something...
-      return <div>The responses are not here yet!</div>
+      return (<div>The responses are not here yet!</div>);
     } else {
       return (
         <div>
